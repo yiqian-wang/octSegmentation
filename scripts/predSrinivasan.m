@@ -2,14 +2,8 @@
 % Download it from here: http://people.duke.edu/~sf59/Srinivasan_BOE_2014_dataset.htm 
 % Since we are not allowed to publish our own datasets, this is a good way to explain the most important functionality of our model: training and prediction
 % We will use the labels obtained here in another script (trainSrinivasan) to train a new model for 3-D volumesnew 
-setenv('OCT_CODE_DIR','D:\Yiqian\07_OCT\octSegmentation-master (2)\');
-% addpath([getenv('OCT_CODE_DIR') '\prediction']);
-% addpath([getenv('OCT_CODE_DIR') '\predVariationalSubFunctions']);
-% addpath([getenv('OCT_CODE_DIR') '\prediction\predVariationalSubFunctions\CCode']);
-% addpath([getenv('OCT_CODE_DIR') '\collector']);
-% addpath([getenv('OCT_CODE_DIR') '\training']);
-% addpath([getenv('OCT_CODE_DIR') '\libraries']);
-% addpath([getenv('OCT_CODE_DIR') '\prediction\post-processing']);
+setenv('OCT_CODE_DIR','D:\Yiqian\07_OCT\octSegmentation-master\'); % change to your dir
+
 % load model file to segment volumetric data
 load([getenv('OCT_CODE_DIR') '/datafiles/modelFiles/model3D']);
 % load margins containing confidence measures expectations of the objective function
@@ -41,7 +35,7 @@ regions = [0:4:28 30 31 33:4:57; 3:4:27 29 30 32 36:4:60];
 % we are currently working on a model extension to handle pathological scans as well
 % 
 for j = 1:1
-	for file = 1:1
+	for file = 1:15
 		fprintf('******** FILE %d ******** \n',file);
 		% files in folder 
 		files = dir([folder subFolders{j} num2str(file) '/TIFFs/8bitTIFFs/*.tif']);

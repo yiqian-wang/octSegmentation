@@ -1,3 +1,5 @@
+*This repo fixes some bugs to run on windows.*
+
 This package provides a toolbox for segmenting OCT retina scans written in Matlab and C. A detailed documentation may be found in documentation.pdf. The corresponding paper can be found here: http://www.sciencedirect.com/science/article/pii/S1361841514000449.
 
 ----------------
@@ -25,7 +27,7 @@ Unfortunately we are not allow to publish any of these scans. For 2-D we have on
 2-D
 -----
 
-1) run useExampleScan2D.m to obtain a segmentation for the circular scan that is included in the package
+1) run useExampleScan2D.m *(couldn't find this in the original repo)* to obtain a segmentation for the circular scan that is included in the package
 2) run octGUI: Load the matfile circularScan.mat (datafiles/exampleScans) and the model file (datafiles/modelFiles) and run the model by clicking on 'Segment'
 
 
