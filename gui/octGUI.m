@@ -1,4 +1,5 @@
 function octGUI()
+setenv('OCT_CODE_DIR', 'F:/chan/medical/example/OCT/octSegmentation-master');
 if length(getenv('OCT_CODE_DIR')) == 0
 	error('Set system variable "OCT_CODE_DIR" to the toolbox directory via setenv');
 end

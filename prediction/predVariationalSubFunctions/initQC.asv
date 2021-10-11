@@ -262,15 +262,14 @@ else
 		for volRegion = 1:numVolRegions
 			% the -1 is C-indexing
 			idxA = sum(numColumnsShape(1:volRegion-1))*numBounds + (1:numColumnsShape(volRegion)) - 1;
-			q_c.singleton(:,:,columnsShapePred{volRegion},volRegion) = sumProductSparseC(...
-                prediction(:,:,columnsShapePred{volRegion},volRegion),... %496, 9, 250
+			q_c.singleton(:,:,columnsShapePred{volRegion},volRegion) = sumProductSparseC(prediction(:,:,columnsShapePred{volRegion},volRegion),... %496, 9, 250
                 models.shapeModel(volRegion).mu,... % 2250, 1
                 WML,... %2250, 20
                 sigmaML,... % 0.3022
                 int32(idxA),... % 1, 250
                 hashTable,... % 10000001
-                int32(boundsPred)-1); %2, 250
-                
+                int32(boundsPred)-1,... %2, 250
+                );
 			% column-wise C-code (used only for testing)
 			%	offset = numColumnsShape(volRegion)*[0:numBounds-2];
 			% initialization only has to be made for columns relvant for updating the q(b) distribution

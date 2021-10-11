@@ -18,6 +18,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
 	int M = mxGetN(prhs[2]); /* number of eigenmodes of the shape prior */
 	int N = mxGetM(prhs[2]); /* number of rows in WML */
 	int numColumns = mxGetNumberOfElements(prhs[4]); /* for each column in the shape prior model there is one index */
+	/*insert debug message here*/
+	// mexPrintf("%d",numColumns);
 	const int* dims = mxGetDimensions(prhs[0]);
 	int numBounds = dims[1]; /* number of columns of pObs */
 	int numRows = mxGetM(prhs[0]); /* number of rows of pObs */

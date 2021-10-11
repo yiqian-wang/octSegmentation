@@ -2,7 +2,14 @@
 % Download it from here: http://people.duke.edu/~sf59/Srinivasan_BOE_2014_dataset.htm 
 % Since we are not allowed to publish our own datasets, this is a good way to explain the most important functionality of our model: training and prediction
 % We will use the labels obtained here in another script (trainSrinivasan) to train a new model for 3-D volumesnew 
-
+setenv('OCT_CODE_DIR','D:\Yiqian\07_OCT\octSegmentation-master (2)\');
+% addpath([getenv('OCT_CODE_DIR') '\prediction']);
+% addpath([getenv('OCT_CODE_DIR') '\predVariationalSubFunctions']);
+% addpath([getenv('OCT_CODE_DIR') '\prediction\predVariationalSubFunctions\CCode']);
+% addpath([getenv('OCT_CODE_DIR') '\collector']);
+% addpath([getenv('OCT_CODE_DIR') '\training']);
+% addpath([getenv('OCT_CODE_DIR') '\libraries']);
+% addpath([getenv('OCT_CODE_DIR') '\prediction\post-processing']);
 % load model file to segment volumetric data
 load([getenv('OCT_CODE_DIR') '/datafiles/modelFiles/model3D']);
 % load margins containing confidence measures expectations of the objective function
@@ -10,7 +17,8 @@ margins = load([getenv('OCT_CODE_DIR') '/datafiles/modelFiles/healthyMargins3D']
 
 collector.options = model.params; % use most standard parameters stored in the model file
 collector.options.clip = 1; % cut the left and right boundary of each B-Scan to obtain the central part with width 500pxo
-collector.options.folder_data = [getenv('OCT_DOCUMENTS') '/Datasets/OCT/Internet/Srinivasan/']; % set this folder to the directory where you unzipped the dataset
+%collector.options.folder_data = [getenv('OCT_DOCUMENTS') '/Datasets/OCT/Internet/Srinivasan/']; % set this folder to the directory where you unzipped the dataset
+collector.options.folder_data = 'E:\07_OCT\2014_BOE_Srinivasan\Publication_Dataset\'; % set this folder to the directory where you unzipped the dataset
 collector.options.loadRoutineData = 'Srinivasan'; % we specified a load-routine just for that dataset
 collector.options.loadLabels = 0; % since we have no ground thruth; This can be used to print the segmentation error during the segmentation
 collector.options.numRegionsPerVolume = 1; % since we have no ground thruth; This can be used to print the segmentation error during the segmentation
@@ -33,7 +41,7 @@ regions = [0:4:28 30 31 33:4:57; 3:4:27 29 30 32 36:4:60];
 % we are currently working on a model extension to handle pathological scans as well
 % 
 for j = 1:1
-	for file = 1:15
+	for file = 1:1
 		fprintf('******** FILE %d ******** \n',file);
 		% files in folder 
 		files = dir([folder subFolders{j} num2str(file) '/TIFFs/8bitTIFFs/*.tif']);
@@ -57,13 +65,15 @@ for j = 1:1
 				collectorTest.name = @collectTestData; collectorTest.options = collector.options;
 				% perform the prediction
 				testFunc.options.calcFuncVal = 0;
+                %predVariational(testFile,collectorTest,struct(),model,testFunc.options);
 				predictionTmp = testFunc.name(testFile,collectorTest,struct(),model,testFunc.options);
+                
 				% store the prediction
 %				predictionTmp = rmfield(predictionTmp,'q_c_singleton');
 %				prediction(j,file,i) = predictionTmp;
 		
 				% plot the prediction
-				if 0
+				if 1
 					collector.options.labelID = regionSelect;
 					B0 = loadData(testFile.name,collector.options);
 					h = imagesc(B0); ax = gca; ax.ColorOrderIndex = 1;
@@ -86,6 +96,7 @@ for j = 1:1
 				interpolation = [zeros(9,134) interpolation zeros(9,134)];
 				% map the label into the same range 1 to 61
 				save([getenv('OCT_CODE_DIR') '/datafiles/modelFiles/labelsSrinivasan/' testFile.name '_' num2str(regionSelect-1) '_coordinates.mat'],'interpolation');
+                fprintf('******** FILE %d SAVED ******** \n',file);
 			end
 		end
 	end

@@ -1,21 +1,21 @@
-cd collector/helperFunctions
+cd collector
 mex getRaster.c
-cd ../../
+cd ../
 
 cd prediction/predVariationalSubFunctions/CCode
 %mex optQCC.c
-mex optQCC.c CFLAGS="\$CFLAGS -march=native -Wall -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
-mex calcFuncValsC.c CFLAGS="\$CFLAGS -march=native -Wall -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
-mex calcCondQB.c CFLAGS="\$CFLAGS -march=native -Wall -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
-mex calcMuAB2.c CFLAGS="\$CFLAGS -march=native -Wall -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp"
+mex optQCC.c COMPFLAGS="\$COMPFLAGS -march=native -Wall -fopenmp" CXXFLAGS="\$CXXFLAGS -fopenmp"
+mex calcFuncValsC.c COMPFLAGS="\$COMPFLAGS -march=native -Wall -fopenmp" CXXFLAGS="\$CXXFLAGS -fopenmp"
+mex calcCondQB.c COMPFLAGS="\$COMPFLAGS -march=native -Wall -fopenmp" CXXFLAGS="\$CXXFLAGS -fopenmp"
+mex calcMuAB2.c COMPFLAGS="\$COMPFLAGS -march=native -Wall -fopenmp" CXXFLAGS="\$CXXFLAGS -fopenmp"
 cd ../../../
 
-cd training/helperFunctions
+cd training
 mex cglasso.c
 mex getCondTransMatrixC.c
 
-cd ../../
+cd ../
 cd prediction/helperFunctions
-mex sumProductSparseC.c CFLAGS="\$CFLAGS -march=native -Wall -fopenmp" LDFLAGS="\$LDFLAGS -fopenmp" 
+mex -DMX_COMPAT_32 sumProductSparseC.c COMPFLAGS="\$COMPFLAGS -march=native -Wall -fopenmp" CXXFLAGS="\$CXXFLAGS -fopenmp" 
 %mex sumProductSparseC.c
 cd ../../

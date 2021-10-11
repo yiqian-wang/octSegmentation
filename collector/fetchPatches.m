@@ -23,7 +23,7 @@ function patches = fetchPatches(filename,idxSet,options)
 % Website: https://github.com/FabianRathke/octSegmentation
 % Last Revision: 28-Mar-2017
 
-checkPredictionGlobal(filename);
+checkPredictionGlobal(filename, options.labelID);
 global predictionGlobal;
 global isStoredInGlobal;
 %tic;

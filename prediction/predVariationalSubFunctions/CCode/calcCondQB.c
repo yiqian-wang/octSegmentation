@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+
 int min(int A, int B) {
     if (A < B) {
         return A;

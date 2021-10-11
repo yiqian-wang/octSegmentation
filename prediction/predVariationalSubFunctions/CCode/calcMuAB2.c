@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+/*
 int min(int A, int B) {
     if (A < B) {
         return A;
@@ -18,7 +19,7 @@ int max(int A, int B) {
         return B;
     }
 }
-
+*/
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
 
 	/* Input variables */
